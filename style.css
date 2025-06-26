@@ -1,65 +1,156 @@
 body {
-  background-color: #121212;
-  color: #ffffff;
-  font-family: 'Arial', sans-serif;
+  margin: 0 auto;
+  padding: 0;
+  background: radial-gradient(circle at center, #2e1f14 0%, #1a0e05 100%);
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+  color: #f3e7c9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
   text-align: center;
-  padding: 50px 20px;
 }
 
-h1 {
-  margin-bottom: 30px;
+.book-card {
+  width: 400px;
+  height: 250px;
+  perspective: 1200px;
+  margin: 30px auto;
+  position: relative;
 }
 
-.card-container {
-  perspective: 1000px;
-  margin: 20px auto;
-  width: 300px;
-  height: 150px;
-}
-
-.card-inner {
+.book-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.6s;
+  transition: transform 0.8s ease;
   transform-style: preserve-3d;
 }
 
-.card-inner.flipped {
+.book-card.flipped .book-card-inner {
   transform: rotateY(180deg);
 }
 
-.card-front, .card-back {
-  position: absolute;
+.book-face {
   width: 100%;
   height: 100%;
+  position: absolute;
   backface-visibility: hidden;
+  border: 2px solid #c2a678;
+  border-radius: 16px;
+  padding: 30px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #3b2a20, #2a1c12);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  background-color: #1e1e1e;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-  padding: 20px;
-  box-sizing: border-box;
-  font-size: 1.2rem;
+  color: #f3e7c9;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+  font-size: 1.6rem;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  transition: transform 0.8s ease;
 }
 
-.card-back {
+.book-face::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+  filter: blur(8px);
+  z-index: -1;
+  animation: pulseGlow 3s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+  100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.4); }
+}
+
+.front {
+  transform: rotateY(0deg);
+}
+
+.back {
   transform: rotateY(180deg);
 }
 
 button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 1rem;
+  padding: 12px 24px;
+  background-color: #c2a678;
+  color: #2e1f14;
   border: none;
-  background-color: #bb86fc;
-  color: white;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
 }
 
 button:hover {
-  background-color: #9a67ea;
+  background-color: #e3cba7;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+  transform: scale(1.05);
+}
+
+#answerText {
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(white 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.container, .book-card {
+  position: relative;
+  z-index: 1;
+}
+
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle linear infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.2; }
 }
